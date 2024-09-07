@@ -1,1 +1,18 @@
-Create a .github/workflows/link-check.yml file in your repository:
+name: Link Checker
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs daily
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  link-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Run link checker
+        uses: gaurav-nelson/github-action-markdown-link-check@v1
+        with:
+          use-quiet-mode: 'yes'
